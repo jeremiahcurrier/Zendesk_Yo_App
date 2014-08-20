@@ -1,15 +1,15 @@
 (function() {
- 
+
   return {
- 
+
     events: {
       'app.activated':'init'
     },
- 
-    requests:{ // api_token=97963b3e-cec2-3606-5bec-577ca39da1e1     &username=thoreau
- 
+
+    requests:{ 
+
       createTarget: function() {
- 
+
         return {
           url: '/api/v2/targets.json',
           type: 'POST',
@@ -28,9 +28,9 @@
           })
         };
       },
- 
+
       createTrigger: function(targetId) {
- 
+
         return {
           url: '/api/v2/triggers.json',
           type: 'POST',
@@ -50,9 +50,9 @@
           })
         };
       },
- 
+
     },
- 
+
     init: function() {
       this.ajax('createTarget')
       .done(function(data){
@@ -71,5 +71,5 @@
       });
     }
   };
- 
+
 }());
