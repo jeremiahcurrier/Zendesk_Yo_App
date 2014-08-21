@@ -26,6 +26,11 @@
     "helptext": "This is the YO username to tell your agents to send a YO to in order to subscribe",
     "required": true,
     "secure": true
+  },
+  {
+    "name": "installed",
+    "type": "hidden",
+    "value": false
   }
   ]
 }

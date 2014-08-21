@@ -6,7 +6,7 @@
       'app.activated':'init'
     },
 
-    requests:{ 
+    requests:{
 
       createTarget: function() {
 
@@ -51,24 +51,48 @@
         };
       },
 
+      changeSetting: function(data) {
+        return {
+          type: 'PUT',
+          url: "/api/v2/apps/installations/%@.json".fmt(this.installationId()),
+          contentType: 'application/json',
+          data: JSON.stringify(data)
+        };
+      }
+
     },
 
     init: function() {
+    if (this.setting('installed') === false) {
       this.ajax('createTarget')
-      .done(function(data){
+      .done(_.bind(function(data){
         var targetId = data.target.id;
         services.notify("[YO app] target created.", 'notice');
         this.ajax('createTrigger', targetId)
           .done(_.bind(function(){
             services.notify("[YO App] trigger created.", 'notice');
+            this.addSetting("installed");
+            services.notify("Please hard refresh your browser for setting changes to take effect.", 'notice');
           }, this))
           .fail(function(){
             services.notify("There was a problem creating the trigger for the YO app.", 'error');
           });
-        })
+        }, this))
       .fail(function(){
         services.notify("There was a problem creating the target for the YO app. Bummer :(", 'error');
       });
+    }
+    },
+
+    addSetting: function(setting_name) {
+      if (setting_name == 'installed') {
+        var data = {
+          "settings": {
+            "installed": true
+          }
+        };
+        this.ajax('changeSetting', data);
+      }
     }
   };
 
