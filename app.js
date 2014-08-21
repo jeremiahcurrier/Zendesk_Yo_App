@@ -63,7 +63,7 @@
     },
 
     init: function() {
-    if (this.setting('installed') === false) {
+    if (this.setting('installed') == "not_installed") {
       this.ajax('createTarget')
       .done(_.bind(function(data){
         var targetId = data.target.id;
@@ -81,6 +81,8 @@
       .fail(function(){
         services.notify("There was a problem creating the target for the YO app. Bummer :(", 'error');
       });
+    } else {
+      return false;
     }
     },
 
@@ -88,7 +90,7 @@
       if (setting_name == 'installed') {
         var data = {
           "settings": {
-            "installed": true
+            "installed": "is_installed"
           }
         };
         this.ajax('changeSetting', data);

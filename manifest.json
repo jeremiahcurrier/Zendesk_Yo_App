@@ -16,21 +16,20 @@
     "name": "token",
     "type": "text",
     "helptext": "This is your YO API token",
-    "required": true,
-    "secure": true
+    "required": true
   },
 
   {
     "name": "username",
     "type": "text",
     "helptext": "This is the YO username to tell your agents to send a YO to in order to subscribe",
-    "required": true,
-    "secure": true
+    "required": true
   },
   {
     "name": "installed",
     "type": "hidden",
-    "value": false
+    "value": "",
+    "default": "not_installed"
   }
   ]
 }
